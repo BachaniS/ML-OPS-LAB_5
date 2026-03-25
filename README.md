@@ -2,6 +2,8 @@
 
 A simple Python Flask application designed to be containerized with Docker and deployed to **Google Cloud Run**. This project is part of a Google Cloud Run basic lab.
 
+**Changes made:** Used a "Random Facts" app instead of the basic "Hello World" app described in the lab instructions.
+
 ## Live Demo
 🔗 **[https://random-facts-892604212498.us-central1.run.app](https://random-facts-892604212498.us-central1.run.app)**
 
