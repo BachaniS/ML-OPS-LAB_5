@@ -1,55 +1,45 @@
-# Cloud Run Lab: Random Fun Facts App
+# ML Ops Lab 5: Cloud Run
 
-A simple Python Flask application designed to be containerized with Docker and deployed to **Google Cloud Run**. This project is part of a Google Cloud Run basic lab.
+This is my submission for the Google Cloud Run basic lab. 
 
-**Changes made:** Used a "Random Facts" app instead of the basic "Hello World" app described in the lab instructions.
+**Note on changes:** Instead of deploying the standard "Hello World" app from the lab instructions, I decided to build a simple Random Fun Facts app using Flask just to make it a bit more interesting.
 
-## Live Demo
-🔗 **[https://random-facts-892604212498.us-central1.run.app](https://random-facts-892604212498.us-central1.run.app)**
+## What it does
+It's a basic Python web app that serves random facts. I added a simple frontend with some CSS and also built out a few JSON API endpoints so you can fetch facts programmatically.
 
-## Features
-- **32 Fun Facts** across 4 categories: Science 🔬, History 📜, Technology 💻, and Nature 🌿
-- **Modern Glassmorphism UI** with smooth fade-in animations and an interactive "New Fact ✨" button
-- **JSON API Endpoints** for programmatic access to the facts
+Live URL: https://random-facts-892604212498.us-central1.run.app
 
-## API Endpoints
-| HTTP Method | Route | Description |
-|-----------|-------|-------------|
-| `GET` | `/` | Returns the styled HTML frontend with a random fact |
-| `GET` | `/api/fact` | Returns a random fact from any category as JSON |
-| `GET` | `/api/fact/<category>` | Returns a random fact from a specific category (`science`, `history`, `technology`, `nature`) as JSON |
+### API Endpoints
+- `/` - The main web UI
+- `/api/fact` - Gets a random fact as JSON
+- `/api/fact/<category>` - Gets a fact by category (science, history, technology, nature)
 
-## Local Development
-To run this application locally without Docker:
+## How to run it locally
+If you want to test it out:
+```
+pip install flask
+python app.py
+```
+Then go to `http://localhost:8080`
 
-1. Install requirements:
-   ```bash
-   pip install flask
-   ```
-2. Run the application:
-   ```bash
-   python app.py
-   ```
-3. Open `http://localhost:8080` in your browser.
+## Deployment steps used
+For the Cloud Run deployment part of the lab, here were the commands I used:
 
-## Docker & Cloud Run Deployment
-
-### 1. Build the Docker Image
-*(Note: Use `--platform linux/amd64` when building on an Apple Silicon Mac to ensure compatibility with Cloud Run)*
-```bash
-docker build --platform linux/amd64 -t gcr.io/YOUR_PROJECT_ID/random-facts .
+1. Built the container:
+```
+docker build --platform linux/amd64 -t gcr.io/cloud-run-mlops/random-facts .
 ```
 
-### 2. Push to Google Container Registry
-```bash
+2. Pushed to Container Registry:
+```
 gcloud auth configure-docker
-docker push gcr.io/YOUR_PROJECT_ID/random-facts
+docker push gcr.io/cloud-run-mlops/random-facts
 ```
 
-### 3. Deploy to Cloud Run
-```bash
+3. Deployed to Cloud Run:
+```
 gcloud run deploy random-facts \
-  --image gcr.io/YOUR_PROJECT_ID/random-facts \
+  --image gcr.io/cloud-run-mlops/random-facts \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated
